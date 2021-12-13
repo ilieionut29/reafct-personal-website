@@ -1,0 +1,232 @@
+@import "../../web/style/global";
+
+// desktop nav
+.nav.desktop {
+  @include flexbox;
+  @include justify-content(space-between);
+  @include align-items(center);
+  background: $yellow;
+  position: fixed;
+  top: 0;
+  height: 50px;
+  width: 100%;
+  z-index: 100;
+  padding: 0 24px;
+
+  .logo {
+    pointer-events: none;
+  }
+
+  .sections {
+    @include flexbox;
+
+    li {
+      @include font-size(15);
+      font-family: $poppins;
+      font-weight: $font-weight_regular;
+      color: $black;
+      position: relative;
+      margin-right: 12px;
+      cursor: pointer;
+
+      &:after {
+        @include opacity(0);
+        @include transition(opacity 0.35s, transform 0.35s);
+        @include transform(scale(0, 1));
+        content: "";
+        position: absolute;
+        left: 0;
+        display: inline-block;
+        height: 1em;
+        width: 100%;
+        border-bottom: 1.5px solid #000814;
+        margin-top: 7px;
+      }
+
+      &:hover:after {
+        @include opacity(1);
+        @include transform(scale(1));
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+// mobile nav
+.nav.mobile {
+  @include flexbox;
+  @include justify-content(space-between);
+  @include align-items(center);
+
+  .logo {
+    pointer-events: none;
+  }
+
+  .open {
+    @include flexbox;
+    @include justify-content(center);
+    @include align-items(center);
+    color: $black;
+    background: $white;
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    position: fixed;
+    top: 15px;
+    right: 15px;
+
+    svg {
+      height: 50px;
+    }
+  }
+
+  .menu {
+    @include flexbox;
+    @include flex-direction(column);
+    @include opacity(0);
+    @include transition(0.3s);
+    @include translateX(100%);
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 80%;
+    height: 100%;
+    z-index: -1000;
+    background-color: $yellow;
+    border-left: 2px solid $black;
+    visibility: hidden;
+    padding: 12px;
+
+    @media (max-width: 500px) {
+      width: 100%;
+    }
+
+    &.active {
+      @include opacity(1);
+      @include translateX(0);
+      z-index: 1000;
+      visibility: visible;
+    }
+
+    .header {
+      @include flexbox;
+      @include justify-content(flex-start);
+      @include align-items(center);
+      height: 40px;
+
+      svg {
+        color: $black;
+        cursor: pointer;
+      }
+    }
+
+    ul {
+      @include flexbox;
+      @include flex-direction(column);
+    }
+
+    li {
+      @include flexbox;
+      @include flex-direction(column);
+      @include align-items(flex-end);
+      @include font-size(24);
+      font-family: $poppins;
+      font-weight: $font-weight_regular;
+      color: $black;
+      cursor: pointer;
+      margin: 0 10px 10px 0;
+      line-height: 1.3;
+      text-transform: lowercase;
+
+      @media (max-width: 360px) {
+        &:first-child {
+          display: none;
+        }
+      }
+
+      span {
+        @include font-size(16);
+        font-family: $poppins;
+        font-weight: $font-weight_regular;
+        color: $black;
+        width: fit-content;
+        position: relative;
+
+        &:after {
+          @include opacity(0);
+          @include transition(opacity 0.35s, transform 0.35s);
+          @include transform(scale(0, 1));
+          content: "";
+          position: absolute;
+          left: 0;
+          display: inline-block;
+          height: 1em;
+          width: 100%;
+          border-bottom: 1.5px solid $black;
+          margin-top: 7px;
+        }
+      }
+
+      &:hover {
+        span:after {
+          @include opacity(1);
+          @include transform(scale(1));
+        }
+      }
+
+      &:last-child {
+        margin: 0 10px 0 0;
+      }
+    }
+
+    .footer {
+      margin-top: auto;
+
+      &_logo {
+        width: 75px;
+        height: 75px;
+        background: rgb(0, 255, 242);
+        border-radius: 50%;
+        margin: 0 auto;
+      }
+
+      &_info {
+        @include font-size(16);
+        font-family: $poppins;
+        font-weight: $font-weight_regular;
+        text-align: center;
+        color: $black;
+        margin-top: 14px;
+        margin-bottom: 10px;
+
+        .text {
+          @include flexbox;
+          @include justify-content(center);
+        }
+      }
+
+      &_links {
+        @include flexbox;
+        @include justify-content(space-evenly);
+        @include align-items(center);
+
+        &_box {
+          @include flexbox;
+          @include justify-content(center);
+          @include align-items(center);
+          width: 45px;
+          height: 45px;
+          border-radius: 15px;
+
+          svg {
+            color: $black;
+          }
+        }
+      }
+    }
+  }
+}
